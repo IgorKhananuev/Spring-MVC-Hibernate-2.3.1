@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="5">
+    <tr>
+        <th>model</th>
+        <th>color</th>
+        <th>typeOfEngine</th>
+    </tr>
+    <tr th:each="user: ${users}">
+        <td th:utext="${user.getName()}">Name</td>
+        <td th:utext="${user.getLastName()}">LastName</td>
+        <td th:utext="${user.getEmail()}">Email</td>
+    </tr>
+</table>
+</body>
+</html>
