@@ -1,10 +1,13 @@
 package web.userService;
 
+import org.springframework.stereotype.Service;
 import web.model.User;
 import web.userDao.UserDaoImpl;
 
 import java.util.Map;
 
+
+@Service
 public class UserServiceImpl implements UserService {
     private final UserDaoImpl userDaoImpl = new UserDaoImpl();
 

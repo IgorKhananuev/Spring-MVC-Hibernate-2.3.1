@@ -1,10 +1,13 @@
 package web.userDao;
 
+import org.springframework.stereotype.Repository;
 import web.model.User;
 
 import java.util.HashMap;
 import java.util.Map;
 
+
+@Repository
 public class UserDaoImpl implements UserDao {
     private final Map<Long, User> allUsers = new HashMap<>();
 

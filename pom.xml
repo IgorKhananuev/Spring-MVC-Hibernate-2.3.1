@@ -21,6 +21,7 @@
         <javax.servlet-api.version>4.0.0</javax.servlet-api.version>
         <lombok.version>1.18.12</lombok.version>
         <thymeleaf-spring5.version>3.0.9.RELEASE</thymeleaf-spring5.version>
+        <mysql-connector-java.version>8.0.21</mysql-connector-java.version>
     </properties>
 
     <dependencies>
@@ -41,6 +42,13 @@
             <groupId>org.thymeleaf</groupId>
             <artifactId>thymeleaf-spring5</artifactId>
             <version>${thymeleaf-spring5.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-java.version}</version>
         </dependency>
 
         <dependency>
