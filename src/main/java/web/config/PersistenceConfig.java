@@ -1,6 +1,5 @@
 package web.config;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,7 +14,6 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -24,29 +22,15 @@ import java.util.Properties;
 @ComponentScan("web")
 @EnableTransactionManagement
 @PropertySource("classpath:db.properties")
-public class PersistanceConfig {
-    EntityManagerFactory entityManagerFactory;
+public class PersistenceConfig {
+    private Environment environment;
 
-   private Environment environment;
-
-   @Autowired
-    public void setEnvironment(Environment environment){
+    @Autowired
+    public void setEnvironment(Environment environment) {
         this.environment = environment;
     }
 
-//    public Properties persistanceProperty(){
-//        Properties jpaProperties = new Properties();
-//        jpaProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-//        jpaProperties.setProperty("javax.persistence.schema-generation.database.action", "create");
-//        jpaProperties.setProperty("hibernate.show_sql", "true");
-//        return jpaProperties;
-//    }
-
-//    protected EntityManager getEntityManager() {
-//        return entityManagerFactory.createEntityManager();
-//    }
-
-        @Bean
+    @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
@@ -67,7 +51,8 @@ public class PersistanceConfig {
 
         Properties jpaProperties = new Properties();
         jpaProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-        jpaProperties.setProperty("javax.persistence.schema-generation.database.action", "create");
+        jpaProperties.setProperty("javax.persistence.schema-generation.database.action", "update");
+        jpaProperties.setProperty("javax.persistence.schema-generation.database.action", "update");
         jpaProperties.setProperty("hibernate.show_sql", "true");
 
         localContainerEntityManagerFactoryBean.setJpaProperties(jpaProperties);

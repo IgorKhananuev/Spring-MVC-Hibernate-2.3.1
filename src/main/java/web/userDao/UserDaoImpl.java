@@ -4,51 +4,50 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
 @Repository
+@Transactional
 public class UserDaoImpl implements UserDao {
-    private final Map<Long, User> allUsers = new HashMap<>();
 
-    private LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean;
+    @PersistenceContext
+    EntityManager entityManager;
 
-    @Autowired
-    public void setLocalContainerEntityManagerFactoryBean(LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean){
-        this.localContainerEntityManagerFactoryBean = localContainerEntityManagerFactoryBean;
-    }
+    @Override
+    @Transactional
+    public List<User> getAllUsers() {
 
-    public List<User> allUsers() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("User");
-        EntityManager em = emf.createEntityManager();
-        return  em.createQuery("From users").getResultList();
+        return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
      }
 
     @Override
-    public Map<Long, User> getAllUser() {
-        return allUsers;
-    }
-
-    @Override
+    @Transactional
     public void add(User user) {
-        allUsers.put(user.getId(), user);
-
+        entityManager.persist(user);
     }
 
     @Override
+    @Transactional
+    public User findUserById(Long id){
+       return entityManager.find(User.class, id);
+    }
+
+    @Override
+    @Transactional
     public void delete(User user) {
-        allUsers.remove(user.getId(), user);
+        entityManager.remove(user);
     }
 
+    @Transactional
     @Override
-    public void edit(User user) {
-        allUsers.put(user.getId(),user);
+    public User edit(User user) {
+       return entityManager.merge(user);
     }
 }

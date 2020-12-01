@@ -2,11 +2,14 @@ package web.userDao;
 
 import web.model.User;
 
+import java.util.List;
 import java.util.Map;
 
 interface UserDao {
-    Map<Long, User> getAllUser();
+    List<User> getAllUsers();
     void add (User user);
+    User findUserById (Long id);
     void delete (User user);
-    void edit(User user);
+    User edit(User user);
+
 }

@@ -1,10 +1,10 @@
 package web.userService;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
 import web.userDao.UserDaoImpl;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -14,9 +14,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @Transactional
-    public Map<Long, User> getAllUser() {
-        return userDaoImpl.getAllUser();
+    public List<User> getAllUsers() {
+        return userDaoImpl.getAllUsers();
     }
 
     @Override
