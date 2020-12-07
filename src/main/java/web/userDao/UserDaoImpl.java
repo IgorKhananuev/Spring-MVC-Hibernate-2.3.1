@@ -8,9 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
 
 import javax.persistence.*;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 
 @Repository
@@ -23,7 +22,6 @@ public class UserDaoImpl implements UserDao {
     @Override
     @Transactional
     public List<User> getAllUsers() {
-
         return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
      }
 

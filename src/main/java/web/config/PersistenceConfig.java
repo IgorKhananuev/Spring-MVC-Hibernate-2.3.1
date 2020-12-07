@@ -23,6 +23,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @PropertySource("classpath:db.properties")
 public class PersistenceConfig {
+
     private Environment environment;
 
     @Autowired
@@ -51,7 +52,6 @@ public class PersistenceConfig {
 
         Properties jpaProperties = new Properties();
         jpaProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-        jpaProperties.setProperty("javax.persistence.schema-generation.database.action", "update");
         jpaProperties.setProperty("javax.persistence.schema-generation.database.action", "update");
         jpaProperties.setProperty("hibernate.show_sql", "true");
 
