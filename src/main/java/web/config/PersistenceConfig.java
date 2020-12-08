@@ -49,13 +49,7 @@ public class PersistenceConfig {
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         localContainerEntityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
-
-        Properties jpaProperties = new Properties();
-        jpaProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-        jpaProperties.setProperty("javax.persistence.schema-generation.database.action", "update");
-        jpaProperties.setProperty("hibernate.show_sql", "true");
-
-        localContainerEntityManagerFactoryBean.setJpaProperties(jpaProperties);
+        localContainerEntityManagerFactoryBean.setJpaProperties(properties());
 
         return localContainerEntityManagerFactoryBean;
     }
@@ -65,5 +59,14 @@ public class PersistenceConfig {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
+    }
+
+    @Bean
+    public Properties properties(){
+        Properties jpaProperties = new Properties();
+        jpaProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+        jpaProperties.setProperty("javax.persistence.schema-generation.database.action", "create");
+        jpaProperties.setProperty("hibernate.show_sql", "true");
+        return jpaProperties;
     }
 }

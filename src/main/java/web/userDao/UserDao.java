@@ -5,7 +5,7 @@ import web.model.User;
 import java.util.List;
 import java.util.Map;
 
-interface UserDao {
+public interface UserDao {
     List<User> getAllUsers();
     void add (User user);
     User findUserById (Long id);
